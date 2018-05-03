@@ -5,29 +5,22 @@ using System.Threading.Tasks;
 
 namespace IntelipostMiddleware.API
 {
+    /// <summary>
+    /// API para testes para simular a plataforma de vendas. (Os posts neste serviço serão feitas aqui)
+    /// </summary>
     [Route("api/[controller]")]
     public class _SalePlatformTestController : Controller
     {
         [HttpGet]
         public string Get()
         {
-            List<string> values = new List<string>() { "Teste rapido", "Ando sem tempo" };
-            return Ok(values).ToString();
-        }
-
-        [ProducesResponseType(400)]
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
-        {
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("key", "value");
-            return this.NotFound(dic);
+            return "Servico de teste da Plataforma de vendas";
         }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]OrderTrackingInformation value)
         {
-            return this.Ok();
+            return this.Ok();//se chegou aqui, retorna 200 (case desse erro a API do middleware iria tratar)
         }
     }
 }

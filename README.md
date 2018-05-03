@@ -46,6 +46,7 @@ Para rodar o serviço é preciso:
 }
 ```
 - Qualquer outra operação ou recurso que não seja POST em api/tracking retornará NotFound
+- No codigo a plataforma de vendas é referenciada como "SalePlatform". 
 
 ## Decisões tomadas
 ### Tecnologia

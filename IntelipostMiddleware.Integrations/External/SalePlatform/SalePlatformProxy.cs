@@ -21,7 +21,7 @@ namespace IntelipostMiddleware.Integrations.External.SalePlatform
                 /*
                  * Autenticacao pode ser feita aqui
                  */ 
-                var url = "http://localhost:50502/api/saleplatform";
+                var url = "http://localhost:5000/api/saleplatform";
                 var response = client.PostAsync(url, new JsonContent(adaptee.Adapt(orderTrackingInformation))).Result;
 
                 return new SendTrackNotificationResult(response);

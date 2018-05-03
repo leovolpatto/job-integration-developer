@@ -22,7 +22,7 @@ namespace IntelipostMiddleware.API.TrackingValidations
         {
             if (!this.data.Event.Status_id.HasValue)
             {
-                this.dictionary.AddModelError("Status_id", "Invalid value.");
+                this.dictionary.AddModelError("event.status_id", "Invalid value.");
             }
         }
 
@@ -30,7 +30,7 @@ namespace IntelipostMiddleware.API.TrackingValidations
         {
             if (!this.data.Event.Date.HasValue)
             {
-                this.dictionary.AddModelError("date", "Invalid value.");
+                this.dictionary.AddModelError("event.date", "Invalid value.");
             }
         }
 

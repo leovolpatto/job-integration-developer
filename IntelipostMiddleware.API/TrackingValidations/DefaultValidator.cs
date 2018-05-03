@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace IntelipostMiddleware.API.TrackingValidations
 {
+    /// <summary>
+    /// Validaçoes customizadas podem ser feitas extendendo essa classe
+    /// </summary>
     public abstract class DefaultValidator<T> : IValidator
     {
         protected T data;

@@ -12,7 +12,7 @@ namespace IntelipostMiddleware.Integrations.External
             if(args.Platform == SuportedPlatforms.SalePlatform)
             {
                 return new SalePlatformProxy();
-            }
+            }//se houvessem varias, daria para decorar os Proxies e buscar o correto por reflection, eliminando condicionais
 
             throw new PlatformNotSupportedException("Not supported platform");
         }

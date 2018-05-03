@@ -5,7 +5,7 @@ using System.Text;
 namespace IntelipostMiddleware.Integrations.External
 {
     /// <summary>
-    /// Entire integration context facade
+    /// Entire integration context
     /// </summary>
     public class IntegrationProxy
     {

@@ -20,7 +20,7 @@ namespace IntelipostMiddleware.API
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]OrderTrackingInformation value)
         {
-            return this.Ok();//se chegou aqui, retorna 200 (case desse erro a API do middleware iria tratar)
+            return this.Ok();//se chegou aqui, retorna 200 (case desse erro a API do middleware iria tratar )
         }
     }
 }

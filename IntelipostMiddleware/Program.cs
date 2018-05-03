@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using System;
 
 namespace IntelipostMiddleware
 {
@@ -7,6 +8,7 @@ namespace IntelipostMiddleware
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine("Starting service...");
             WebHostListener.GetInstance(args).Host.Run();
         }        
     }

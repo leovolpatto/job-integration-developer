@@ -1,27 +1,45 @@
-﻿using IntelipostMiddleware.API.Models.Intelipost;
+﻿using IntelipostMiddleware.Integrations.External;
+using IntelipostMiddleware.Integrations.Intelipost.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using System;
 using System.Threading.Tasks;
+using static IntelipostMiddleware.Integrations.External.IntegrationProxyArgs;
 
 namespace IntelipostMiddleware.API
 {
+    /// <summary>
+    /// Serviço interno - precisa de autenticacao?!
+    /// </summary>
     [Route("api/[controller]")]
     public class TrackingController : Controller
     {
         [HttpGet]
         public string Get()
-        {            
-            List<string> values = new List<string>() { "Teste rapido", "Ando sem tempo" };
-            return Ok(values).ToString();
-        }
-
-        [ProducesResponseType(400)]
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
         {
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("key", "value");
-            return this.NotFound(dic) ;
+            OrderTrackingInformation info = new OrderTrackingInformation();
+            info.Order_id = 2;
+            info.Event = new OrderTrackingEvent
+            {
+                Date = DateTime.Now,
+                Status_id = 1
+            };
+            info.Package = new OrderTrackingPackage
+            {
+                Package_id = 12,
+                Package_invoice = new OrderPackageInvoice
+                {
+                    Date = DateTime.Now,
+                    Key = "323",
+                    Mumber = "342"
+                }
+            };
+            
+            var xy = 
+            IntegrationProxy.GetInstance(new IntegrationProxyArgsBuilder().BuildDefault())
+                .Proxy.SendTrackNotification(info);
+
+            
+            return Ok("alo").ToString();
         }
 
         [HttpPost]
@@ -33,7 +51,15 @@ namespace IntelipostMiddleware.API
                 return this.BadRequest(this.ModelState);
             }
 
-            return this.Ok();
+            var result = IntegrationProxy.GetInstance(new IntegrationProxyArgsBuilder().BuildDefault())
+                .Proxy.SendTrackNotification(value);
+
+            if (!result.IsSuccess)
+            {
+                return this.BadRequest(result.Message);
+            }
+
+            return this.Ok("Platform was notified successfully");
         }        
     }
 }

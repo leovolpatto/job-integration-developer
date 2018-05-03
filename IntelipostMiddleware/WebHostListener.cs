@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using System;
 
 namespace IntelipostMiddleware
 {
@@ -10,9 +11,10 @@ namespace IntelipostMiddleware
 
         private WebHostListener(string[] args)
         {
+            Console.WriteLine("Creating host");
             this.host = WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()            
-                .UseUrls("http://0.0.0.0:5000/")
+                .UseUrls("http://0.0.0.0:5000/")//isso pode vir de uma config. Deixei fixo aqui porque a porta do docker vai ficar fixa
                 .Build();
         }
 

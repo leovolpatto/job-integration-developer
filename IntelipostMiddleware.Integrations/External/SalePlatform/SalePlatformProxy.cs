@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using IntelipostMiddleware.Integrations.Config;
 using IntelipostMiddleware.Integrations.External.SalePlatform.Adapters;
 using IntelipostMiddleware.Integrations.External.SalePlatform.Responses;
 using IntelipostMiddleware.Integrations.Intelipost.Models;
@@ -15,14 +16,26 @@ namespace IntelipostMiddleware.Integrations.External.SalePlatform
         public SendTrackNotificationResult SendTrackNotification(OrderTrackingInformation orderTrackingInformation)
         {
             OrderTrackingInfoAdapter adaptee = new OrderTrackingInfoAdapter();
-            
+
             using (var client = new HttpClient())
             {
                 /*
                  * Autenticacao pode ser feita aqui
-                 */ 
-                var url = "http://localhost:5000/api/saleplatform";
-                var response = client.PostAsync(url, new JsonContent(adaptee.Adapt(orderTrackingInformation))).Result;
+                 */
+                var url = ServiceConfiguration.GetConfigurations()
+                    .Configuration
+                    .GetConfiguration()
+                    .ApiUrl;
+
+                HttpResponseMessage response = null;
+                try
+                {
+                    response = client.PostAsync(url, new JsonContent(adaptee.Adapt(orderTrackingInformation))).Result;
+                }
+                catch (Exception ex)
+                {
+                    return new SendTrackNotificationResult(response);
+                }
 
                 return new SendTrackNotificationResult(response);
             }

@@ -1,4 +1,5 @@
-﻿using IntelipostMiddleware.Integrations.External;
+﻿using IntelipostMiddleware.Integrations.Config;
+using IntelipostMiddleware.Integrations.External;
 using IntelipostMiddleware.Integrations.Intelipost.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -28,7 +29,12 @@ namespace IntelipostMiddleware.API
                 return this.BadRequest(this.ModelState);
             }
 
-            var result = IntegrationProxy.GetInstance(new IntegrationProxyArgsBuilder().BuildDefault())
+            var args = new IntegrationProxyArgsBuilder()
+                .SetPlatformType(SuportedPlatforms.SalePlatform)
+                .SetBaseURI("/api")
+                .Build();
+
+            var result = IntegrationProxy.GetInstance(args)
                 .Proxy.SendTrackNotification(value);
 
             if (!result.IsSuccess)

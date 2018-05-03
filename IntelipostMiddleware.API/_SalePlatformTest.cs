@@ -14,7 +14,7 @@ namespace IntelipostMiddleware.API
         [HttpGet]
         public string Get()
         {
-            return "Servico de teste da Plataforma de vendas";
+            return "Servico de teste da Plataforma de vendas.";
         }
 
         [HttpPost]
